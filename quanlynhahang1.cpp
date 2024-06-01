@@ -65,25 +65,63 @@ public:
         }
     }
 
-    void datBan() {
-    	int maBan;
-		cout << "Nhap ma ban muon dat: ";
-    	cin >> maBan; 
-        if (maBan < 1 || maBan > soLuongBan) {
-            cout << "Ma ban khong hop le. Vui long thu lai!" << endl;
-            return;
-        }
+//    void datBan() {
+//    	int maBan;
+//		cout << "Nhap ma ban muon dat: ";
+//    	cin >> maBan; 
+//        if (maBan < 1 || maBan > soLuongBan) {
+//            cout << "Ma ban khong hop le. Vui long thu lai!" << endl;
+//            return;
+//        }
+//
+//        if (danhSachBan[maBan - 1].getTrangThai()) {
+//            danhSachBan[maBan - 1].setTrangThai(false);
+//            cout << "Dat ban " << maBan << " thanh cong!" << endl;
+//        } else {
+//            cout << "Ban " << maBan << " dang co nguoi. Vui long chon ban khac!" << endl;
+//        }
+//    }
 
-        if (danhSachBan[maBan - 1].getTrangThai()) {
-            danhSachBan[maBan - 1].setTrangThai(false);
-            cout << "Dat ban " << maBan << " thanh cong!" << endl;
-        } else {
-            cout << "Ban " << maBan << " dang co nguoi. Vui long chon ban khac!" << endl;
+void datBan() {
+            int soLuongDat;
+            cout << "Nhap so luong ban muon dat: ";
+            cin >> soLuongDat;
+
+            if (soLuongDat < 1 || soLuongDat > soLuongBan) {
+                cout << "So luong ban khong hop le. Vui long thu lai!" << endl;
+                return;
+            }
+
+            for (int i = 0; i < soLuongDat; ++i) {
+                int maBan;
+                cout << "Nhap ma ban thu " << (i + 1) << " muon dat: ";
+                cin >> maBan;
+
+                if (maBan < 1 || maBan > soLuongBan) {
+                    cout << "Ma ban khong hop le. Vui long thu lai!" << endl;
+                    --i;
+                    continue;
+                }
+
+                if (danhSachBan[maBan - 1].getTrangThai()) {
+                    danhSachBan[maBan - 1].setTrangThai(false);
+                    cout << "Dat ban " << maBan << " thanh cong!" << endl;
+                } else {
+                    cout << "Ban " << maBan << " dang co nguoi. Vui long chon ban khac!" << endl;
+                    --i;
+                }
+            }
         }
-    }
 
     void huyDatBan() {
-        int maBanHuy; 
+        cout << "Danh sach ban dang su dung:" << endl;
+        for (int i = 0; i < soLuongBan; i++) {
+			if (!danhSachBan[i].getTrangThai()) {
+                cout << " - Ban " << danhSachBan[i].getMaBan() << endl;
+            }
+        }
+		int maBanHuy; 
+        
         cout << "Nhap ban muon huy: ";
         cin >> maBanHuy;
 
