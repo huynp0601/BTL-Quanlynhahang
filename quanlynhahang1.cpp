@@ -1,7 +1,61 @@
 #include <iostream>
 #include <string>
 #include <conio.h>
+#include <iomanip>
 using namespace std;
+class danhgia {
+private:
+    string ten;
+    string SDT;
+    double diem;
+    int dem = 0;
+    int sonhanxet = 0;
+    double tong = 0;
+    string nhanxet[100];
+    string sdt[100];
+    string kh[100];
+
+public:
+    void nhap() {
+        cout << "Nhap thong tin quy khach: " << endl;
+        cout << "Ten: ";
+        cin.ignore(); 
+        getline(cin, ten);
+        cout << "SDT: ";
+        getline(cin, SDT);
+        cout << "Quy khach cham diem ve chat luong mon an: ";
+        cin >> diem;
+        cin.ignore(); 
+        dem++;
+        tong += diem;
+        if (diem <= 5) {
+            cout << "Quy khach co the nhan xet de nha hang co the khac phuc: ";
+            getline(cin, nhanxet[sonhanxet]);
+            sdt[sonhanxet] = SDT;
+            kh[sonhanxet]=ten;
+            sonhanxet++;
+            cout << "Cam on quy khach da danh thoi gian de danh gia!!!" << endl;
+        } else {
+            cout << "Cam on quy khach da danh thoi gian de danh gia!!!" << endl;
+        }
+    }
+
+    void hienthi() {
+		for (int i = 0; i < sonhanxet; i++) {
+            cout << "+---------------------------------------------+" << endl;
+            cout << "| Ten khach hang: " << setw(28) << left << kh[i] << "|" << endl;
+			cout << "| SDT: " << setw(39) << left << sdt[i] << "|" << endl;
+            cout << "| Nhan xet: " << setw(34) << left << nhanxet[i] << "|" << endl;
+        }
+        cout << "+---------------------------------------------+" << endl;
+        
+    }
+    void diemTB(){
+    	double a=(tong/dem);
+    	cout<< "Diem trung binh hien tai cua cua hang: "<<fixed<< setprecision(2)<<a<< endl;
+    	
+	}
+};
 class admin {
 private:
 	string const username = "nhahang08";
@@ -171,6 +225,7 @@ class nhahang {
 private:
 	admin chu;
 	date ngay;
+	danhgia dg;
 public:
 	string getAdminUsername() const {
 	return chu.getUsername();
@@ -190,6 +245,17 @@ public:
 		cin >> year;
 		ngay.setYear(year);
 	}
+	void nhapDanhGia() {
+        dg.nhap();
+    }
+
+    void hienThiDanhGia() {
+        dg.hienthi();
+    }
+
+    void hienThiDiemTB() {
+        dg.diemTB();
+    }
 	
 };
 
@@ -252,6 +318,10 @@ int main() {
 			system("cls");
 			switch (adminOption) {
 			case 1:
+				nhom8.hienThiDiemTB();
+				nhom8.hienThiDanhGia();
+				_getch();
+				system("cls");
 				adminMenu(nhom8,khach, tt);
 				break;
 			case 2:
@@ -307,6 +377,12 @@ int main() {
 				system("cls");
 				userMenu(nhom8,khach,tt);				
 				break;
+			case 6:
+				nhom8.nhapDanhGia();
+				_getch();
+				system("cls");
+				userMenu(nhom8,khach,tt);
+				break;
 			case 7:
 				mainMenu(nhom8,khach,tt);
 				break;
@@ -315,7 +391,7 @@ int main() {
 				_getch();
 				system("cls");
 				userMenu(nhom8,khach,tt);
-				
+				break;
 				
 		
             
@@ -365,6 +441,12 @@ void adminLogin(nhahang phu2, QuanLyBan khach, int tt2) {
 		switch (adminOption)
 			{
 			case 1:
+				phu2.hienThiDiemTB();
+				phu2.hienThiDanhGia();
+				_getch();
+				system("cls");
+				adminMenu(phu2,khach, tt2);
+				break;
 				adminMenu(phu2, khach,tt2);
 				break;
 			case 2:
@@ -434,8 +516,12 @@ void mainMenu(nhahang phu, QuanLyBan phu2, int tt) {
 			switch (adminOption)
 			{
 			case 1:
-				adminMenu(phu,phu2,tt);
-				break;
+				phu.hienThiDiemTB();
+				phu.hienThiDanhGia();
+				_getch();
+				system("cls");
+				adminMenu(phu,phu2, tt);
+				break;				
 			case 2:
 				adminMenu(phu,phu2,tt);
 				break;
@@ -464,7 +550,7 @@ void mainMenu(nhahang phu, QuanLyBan phu2, int tt) {
 		cout << " ===============================" << endl;
 		cout << " |                             |" << endl;
 		cout << " |                             |" << endl;
-		cout << " |         Thank you !!!       |" << endl;
+		cout << " |          Cam on  !!!        |" << endl;
 		cout << " |                             |" << endl;
 		cout << " |                             |" << endl;
 		cout << " ===============================" << endl;
@@ -542,6 +628,12 @@ void userMenu(nhahang nhom8,QuanLyBan phu, int tt){
 		_getch();
 		system("cls");
 		userMenu(nhom8,phu,tt);				
+		break;
+	case 6:
+		nhom8.nhapDanhGia();
+		_getch();
+		system("cls");
+		userMenu(nhom8,phu,tt);
 		break;
 	case 7:
 		mainMenu(nhom8,phu,tt);
