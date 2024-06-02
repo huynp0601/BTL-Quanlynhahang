@@ -65,22 +65,6 @@ public:
         }
     }
 
-//    void datBan() {
-//    	int maBan;
-//		cout << "Nhap ma ban muon dat: ";
-//    	cin >> maBan; 
-//        if (maBan < 1 || maBan > soLuongBan) {
-//            cout << "Ma ban khong hop le. Vui long thu lai!" << endl;
-//            return;
-//        }
-//
-//        if (danhSachBan[maBan - 1].getTrangThai()) {
-//            danhSachBan[maBan - 1].setTrangThai(false);
-//            cout << "Dat ban " << maBan << " thanh cong!" << endl;
-//        } else {
-//            cout << "Ban " << maBan << " dang co nguoi. Vui long chon ban khac!" << endl;
-//        }
-//    }
 
 void datBan() {
             int soLuongDat;
@@ -209,10 +193,10 @@ public:
 	
 };
 
-void userMenu(QuanLyBan khach, int tt);
-void adminLogin(nhahang phu, int tt);
-void mainMenu(nhahang phu, int tt);
-void adminMenu(nhahang phu, int tt);
+void userMenu(nhahang nhom8,QuanLyBan khach, int tt);
+void adminLogin(nhahang phu, QuanLyBan khach ,int tt);
+void mainMenu(nhahang phu,QuanLyBan khach, int tt);
+void adminMenu(nhahang phu, QuanLyBan khach, int tt);
 int main() {
 	nhahang nhom8;
 	QuanLyBan khach;
@@ -268,18 +252,18 @@ int main() {
 			system("cls");
 			switch (adminOption) {
 			case 1:
-				adminMenu(nhom8, tt);
+				adminMenu(nhom8,khach, tt);
 				break;
 			case 2:
-				adminMenu(nhom8, tt);
+				adminMenu(nhom8,khach, tt);
 				break;
 			case 3:
-				mainMenu(nhom8,tt);
+				mainMenu(nhom8,khach,tt);
 				break;
 			
 			default:
 				cout << " Vui long chon lai!" << endl;
-				adminMenu(nhom8, tt);
+				adminMenu(nhom8,khach, tt);
 				break;
 			}
 		}
@@ -287,7 +271,7 @@ int main() {
 			cout << " Thong tin dang nhap khong hop le, an phim bat ky de thu lai!" << endl;
 			_getch();
 			system("cls");
-			adminLogin(nhom8, tt);
+			adminLogin(nhom8,khach, tt);
 		}    
         	break;    
         case 2:
@@ -313,7 +297,7 @@ int main() {
 				khach.datBan();
 				_getch();
 				system("cls");
-				userMenu(khach,tt);
+				userMenu(nhom8, khach,tt);
 				break;
 			case 2:	
 				break;
@@ -321,16 +305,16 @@ int main() {
 				khach.huyDatBan();
 				_getch();
 				system("cls");
-				userMenu(khach,tt);				
+				userMenu(nhom8,khach,tt);				
 				break;
 			case 7:
-				mainMenu(nhom8,tt);
+				mainMenu(nhom8,khach,tt);
 				break;
 			case 8:
 				khach.trangThaiBan();
 				_getch();
 				system("cls");
-				userMenu(khach,tt);
+				userMenu(nhom8,khach,tt);
 				
 				
 		
@@ -347,14 +331,14 @@ int main() {
             return 0;
         default:
             cout << "Lua chon khong hop le! Vui long chon lai\n";
-            mainMenu(nhom8, tt);
+            mainMenu(nhom8,khach, tt);
             break;
     }
     return 0;
 };
 }
 
-void adminLogin(nhahang phu2, int tt2) {
+void adminLogin(nhahang phu2, QuanLyBan khach, int tt2) {
     string username, password;
     cout << " ===============================\n";
     cout << "                              \n";
@@ -381,18 +365,18 @@ void adminLogin(nhahang phu2, int tt2) {
 		switch (adminOption)
 			{
 			case 1:
-				adminMenu(phu2, tt2);
+				adminMenu(phu2, khach,tt2);
 				break;
 			case 2:
-				adminMenu(phu2, tt2);
+				adminMenu(phu2, khach,tt2);
 				break;
 			case 3:
-				mainMenu(phu2, tt2);
+				mainMenu(phu2, khach, tt2);
 				break;
 			
 			default:
 				cout << " Vui long chon lai!" << endl;
-				adminMenu(phu2, tt2);
+				adminMenu(phu2, khach, tt2);
 				break;
 			}
 		}
@@ -400,12 +384,12 @@ void adminLogin(nhahang phu2, int tt2) {
 			cout << " Thong tin dang nhap khong hop le, an phim bat ky de thu lai!" << endl;
 			_getch();
 			system("cls");
-			adminLogin(phu2, tt2);
+			adminLogin(phu2, khach, tt2);
 		}    
 }
-void userMenu(QuanLyBan phu2, int tt2);
-void mainMenu(nhahang phu, int tt) {
-	QuanLyBan phu2;
+void userMenu(nhahang nhom8, QuanLyBan phu2, int tt2);
+void mainMenu(nhahang phu, QuanLyBan phu2, int tt) {
+	
 	int loginOption = 0;
 	int userOption = 0;
 	int orderSlot = tt;
@@ -450,18 +434,18 @@ void mainMenu(nhahang phu, int tt) {
 			switch (adminOption)
 			{
 			case 1:
-				adminMenu(phu,tt);
+				adminMenu(phu,phu2,tt);
 				break;
 			case 2:
-				adminMenu(phu,tt);
+				adminMenu(phu,phu2,tt);
 				break;
 			case 3:
-				mainMenu(phu,tt);
+				mainMenu(phu, phu2, tt);
 				break;
 			
 			default:
 				cout << " Vui long chon lai!!" << endl;
-				adminMenu(phu, tt);
+				adminMenu(phu,phu2, tt);
 				break;
 			}
 		}
@@ -470,10 +454,10 @@ void mainMenu(nhahang phu, int tt) {
 			cout << " Thong tin dang nhap khong hop le, an phim bat ky de thu lai thu lai!!" << endl;
 			_getch();
 			system("cls");
-			adminLogin(phu, tt);
+			adminLogin(phu,phu2, tt);
 		}
 	case 2:
-		userMenu(phu2,tt);
+		userMenu(phu,phu2,tt);
 		break;
 		
 	case 3:
@@ -488,11 +472,11 @@ void mainMenu(nhahang phu, int tt) {
 	default:
 		cout << "Lua chon khong hop le! Vui long chon lai\n";
 		_getch();
-		mainMenu(phu,orderSlot);
+		mainMenu(phu, phu2, orderSlot);
 		break;
 	};
 }
-void adminMenu(nhahang phu, int tt) {
+void adminMenu(nhahang phu, QuanLyBan khach, int tt) {
 	int adminOption = 0;
 
 	cout << " ===============================" << endl;
@@ -509,25 +493,24 @@ void adminMenu(nhahang phu, int tt) {
 	{
 	case 1:
 		
-		adminMenu(phu, tt);
+		adminMenu(phu, khach, tt);
 		break;
 	case 2:
 		
-		adminMenu(phu, tt);
+		adminMenu(phu, khach, tt);
 		break;
 	case 3:
 		
-		mainMenu(phu, tt);
+		mainMenu(phu, khach, tt);
 		break;
 	
 	default:
 		cout << " Vui long chon lai!!" << endl;
-		adminMenu(phu, tt);
+		adminMenu(phu, khach, tt);
 		break;
 	};
 }
-void userMenu(QuanLyBan phu, int tt){
-	nhahang nhom8;
+void userMenu(nhahang nhom8,QuanLyBan phu, int tt){
 	cout<<	" ===============================" << endl;
 	cout<<	" |                             |" << endl;
 	cout<<	" | Lua chon thao tac ban muon: |" << endl;
@@ -550,7 +533,7 @@ void userMenu(QuanLyBan phu, int tt){
 		phu.datBan();
 		_getch();
 		system("cls");
-		userMenu(phu,tt);
+		userMenu(nhom8,phu,tt);
 		
 	case 2:	
 		break;
@@ -558,16 +541,16 @@ void userMenu(QuanLyBan phu, int tt){
 		phu.huyDatBan();
 		_getch();
 		system("cls");
-		userMenu(phu,tt);				
+		userMenu(nhom8,phu,tt);				
 		break;
 	case 7:
-		mainMenu(nhom8,tt);
+		mainMenu(nhom8,phu,tt);
 		break;
 	case 8:
 		phu.trangThaiBan();
 		_getch();
 		system("cls");
-		userMenu(phu,tt);
+		userMenu(nhom8,phu,tt);
 	};
 }
 
