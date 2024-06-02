@@ -464,7 +464,7 @@ void mainMenu(nhahang phu, QuanLyBan phu2, int tt) {
 		cout << " ===============================" << endl;
 		cout << " |                             |" << endl;
 		cout << " |                             |" << endl;
-		cout << " |          Cam on !!!         |" << endl;
+		cout << " |         Thank you !!!       |" << endl;
 		cout << " |                             |" << endl;
 		cout << " |                             |" << endl;
 		cout << " ===============================" << endl;
