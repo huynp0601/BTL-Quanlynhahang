@@ -1,5 +1,4 @@
-#include <iostream>
-#include <string>
+#include<bits/stdc++.h>
 #include <conio.h>
 using namespace std;
 class danhgia {
@@ -241,8 +240,9 @@ void userMenu(nhahang nhom8,QuanLyBan khach, int tt);
 void adminLogin(nhahang phu, QuanLyBan khach ,int tt);
 void mainMenu(nhahang phu,QuanLyBan khach, int tt);
 void adminMenu(nhahang phu, QuanLyBan khach, int tt);
+danhgia dg;
 int main() {
-	danhgia dg;
+	
 	nhahang nhom8;
 	QuanLyBan khach;
     int dangnhap = 0, tt = 0;
@@ -357,7 +357,7 @@ int main() {
 				dg.nhap();
 				_getch();
 				system("cls");
-				userMenu(khach,tt);	
+				userMenu(nhom8,khach,tt);	
                 break;
 			case 7:
 				mainMenu(nhom8,khach,tt);
@@ -544,7 +544,9 @@ void adminMenu(nhahang phu, QuanLyBan khach, int tt) {
 	switch (adminOption)
 	{
 	case 1:
-		
+		dg.diemTB();
+		dg.hienthi();
+		_getch;
 		adminMenu(phu, khach, tt);
 		break;
 	case 2:
@@ -603,6 +605,12 @@ void userMenu(nhahang nhom8,QuanLyBan phu, int tt){
 		_getch();
 		system("cls");
 		userMenu(nhom8,phu,tt);
+	case 6:
+		dg.nhap();
+		_getch();
+		system("cls");
+		userMenu(nhom8,phu,tt);	
+        break;
 	};
 }
 
