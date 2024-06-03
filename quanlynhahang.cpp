@@ -40,18 +40,22 @@ public:
         cout << "+----------------------------+------------+\n";
         for (int i = 0; i < soLuongMonAn; ++i) {
             cout << "| " << setw(27) << left << danhSachMonAn[i].ten << "| " << setw(10) << right << danhSachMonAn[i].gia << " |\n";
-        }
-        cout << "+----------------------------+------------+\n";
+        	cout << "+----------------------------+------------+\n";	
+		}
+        
     }
 
     void xoaMon() {
-        cout << "                  MENU                     \n";
-		displayMenu();
-		string ten;
+    cout << "                  MENU                     \n";
+    displayMenu();
+    string ten;
+    bool timThay = false;
+
+    do {
         cout << "Nhap ten mon an can xoa: ";
         cin.ignore();
         getline(cin, ten);
-        bool timThay = false;
+
         for (int i = 0; i < soLuongMonAn; ++i) {
             if (danhSachMonAn[i].ten == ten) {
                 for (int j = i; j < soLuongMonAn - 1; ++j) {
@@ -63,10 +67,12 @@ public:
                 break;
             }
         }
+
         if (!timThay) {
-            cout << "Khong tim thay mon an trong menu!\n";
+            cout << "Khong tim thay mon an trong menu! Vui long thu lai.\n";
         }
-    }
+    } while (!timThay);
+	}	
 
 };
 class danhgia {
@@ -761,7 +767,10 @@ void userMenu(nhahang nhom8,QuanLyBan phu, int tt){
 		userMenu(nhom8,phu,tt);
 		
 	case 2:	
-	
+		nhom8.hienthimenu();
+		_getch();
+		system("cls");
+		userMenu(nhom8,phu,tt);
 		break;
 	case 5:
 		phu.huyDatBan();
