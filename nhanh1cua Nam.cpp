@@ -3,71 +3,6 @@
 #include <conio.h>
 #include <iomanip>
 using namespace std;
-const int MAX_MONAN = 100;
-
-class Menu {
-private:
-    struct MonAn {
-        string ten;
-        long long gia;
-    };
-    MonAn danhSachMonAn[MAX_MONAN];
-    int soLuongMonAn;
-
-public:
-    Menu() {
-    	soLuongMonAn=0;
-	}
-
-    void themMon() {
-        if (soLuongMonAn < MAX_MONAN) {
-            MonAn mon;
-            cout << "Nhap ten mon an: ";
-            cin.ignore();
-            getline(cin, mon.ten);
-            cout << "Nhap gia tien: ";
-            cin >> mon.gia;
-            danhSachMonAn[soLuongMonAn++] = mon;
-            cout << "Mon an da duoc them thanh cong!\n";
-        } else {
-            cout << "Menu da day, khong the them mon an moi!\n";
-        }
-    }
-	void displayMenu() {
-        cout << "+----------------------------+------------+\n";
-        cout << "| Ten mon an                 | Gia tien   |\n";
-        cout << "+----------------------------+------------+\n";
-        for (int i = 0; i < soLuongMonAn; ++i) {
-            cout << "| " << setw(27) << left << danhSachMonAn[i].ten << "| " << setw(10) << right << danhSachMonAn[i].gia << " |\n";
-        }
-        cout << "+----------------------------+------------+\n";
-    }
-
-    void xoaMon() {
-        cout << "                  MENU                     \n";
-		displayMenu();
-		string ten;
-        cout << "Nhap ten mon an can xoa: ";
-        cin.ignore();
-        getline(cin, ten);
-        bool timThay = false;
-        for (int i = 0; i < soLuongMonAn; ++i) {
-            if (danhSachMonAn[i].ten == ten) {
-                for (int j = i; j < soLuongMonAn - 1; ++j) {
-                    danhSachMonAn[j] = danhSachMonAn[j + 1];
-                }
-                --soLuongMonAn;
-                cout << "Mon an da duoc xoa thanh cong!\n";
-                timThay = true;
-                break;
-            }
-        }
-        if (!timThay) {
-            cout << "Khong tim thay mon an trong menu!\n";
-        }
-    }
-
-};
 class danhgia {
 private:
     string ten;
@@ -291,8 +226,6 @@ private:
 	admin chu;
 	date ngay;
 	danhgia dg;
-	Menu menu;
-	
 public:
 	string getAdminUsername() const {
 	return chu.getUsername();
@@ -323,15 +256,6 @@ public:
     void hienThiDiemTB() {
         dg.diemTB();
     }
-    void themmonan(){
-    	menu.themMon();
-	}
-	void xoamonan(){
-		menu.xoaMon();
-	}
-	void hienthimenu(){
-		menu.displayMenu();
-	}
 	
 };
 
@@ -387,9 +311,7 @@ int main() {
             cout << " |  Lua chon muc muon truy cap |\n";
             cout << " |      1) Xem danh gia        |\n";
             cout << " |      2) Xem doanh thu       |\n";
-            cout << " |      3) Them mon vao Menu   |\n";
-            cout << " |      4) Xoa mon khoi Menu   |\n";
-			cout << " |      5) Thoat               |\n";
+            cout << " |      3) Thoat               |\n";
 			cout << " |                             |" << endl;
 			cout << " ===============================" << endl;
 			cin >> adminOption;
@@ -406,17 +328,6 @@ int main() {
 				adminMenu(nhom8,khach, tt);
 				break;
 			case 3:
-				nhom8.themmonan();
-				_getch();
-				system("cls");
-				adminMenu(nhom8,khach, tt);
-				break;
-			case 4:
-				nhom8.xoamonan();
-				_getch();
-				system("cls");
-				adminMenu(nhom8,khach, tt);
-			case 5:
 				mainMenu(nhom8,khach,tt);
 				break;
 			
@@ -458,17 +369,7 @@ int main() {
 				system("cls");
 				userMenu(nhom8, khach,tt);
 				break;
-			case 2:
-				nhom8.hienthimenu();
-				cout<<"Ban co muon order khong?(Y/N)\n";
-				char t;
-				cin>>t;
-				while(t=='Y'||t=='y'){
-					
-				}
-				_getch();
-				system("cls");
-				userMenu(nhom8, khach,tt);
+			case 2:	
 				break;
 			case 5:
 				khach.huyDatBan();
@@ -532,9 +433,7 @@ void adminLogin(nhahang phu2, QuanLyBan khach, int tt2) {
         cout << " |  Lua chon muc muon truy cap |\n";
         cout << " |      1) Xem danh gia        |\n";
         cout << " |      2) Xem doanh thu       |\n";
-        cout << " |      3) Them mon vao Menu   |\n";
-        cout << " |      4) Xoa mon khoi Menu   |\n";
-		cout << " |      5) Thoat               |\n";
+        cout << " |      3) Thoat               |\n";
 		cout << " |                             |" << endl;
 		cout << " ===============================" << endl;
 		cin >> adminOption;
@@ -554,18 +453,6 @@ void adminLogin(nhahang phu2, QuanLyBan khach, int tt2) {
 				adminMenu(phu2, khach,tt2);
 				break;
 			case 3:
-				phu2.themmonan();
-				_getch();
-				system("cls");
-				adminMenu(phu2,khach, tt2);
-				break;
-			case 4:
-				phu2.xoamonan();
-				_getch();
-				system("cls");
-				adminMenu(phu2,khach, tt2);
-			
-			case 5:				
 				mainMenu(phu2, khach, tt2);
 				break;
 			
@@ -618,12 +505,10 @@ void mainMenu(nhahang phu, QuanLyBan phu2, int tt) {
 			int adminOption = 0;
 			cout << " ===============================" << endl;
 			cout << " |                             |" << endl;
-            cout << " |  Lua chon muc muon truy cap |\n";
+			cout << " |  Lua chon muc muon truy cap |\n";
             cout << " |      1) Xem danh gia        |\n";
             cout << " |      2) Xem doanh thu       |\n";
-            cout << " |      3) Them mon vao Menu   |\n";
-            cout << " |      4) Xoa mon khoi Menu   |\n";
-			cout << " |      5) Thoat               |\n";
+            cout << " |      3) Thoat               |\n";
 			cout << " |                             |" << endl;
 			cout << " ===============================" << endl;
 			cin >> adminOption;
@@ -641,17 +526,6 @@ void mainMenu(nhahang phu, QuanLyBan phu2, int tt) {
 				adminMenu(phu,phu2,tt);
 				break;
 			case 3:
-				phu.themmonan();
-				_getch();
-				system("cls");
-				adminMenu(phu,phu2, tt);
-				break;
-			case 4:
-				phu.xoamonan();
-				_getch();
-				system("cls");
-				adminMenu(phu,phu2,tt);
-			case 5:
 				mainMenu(phu, phu2, tt);
 				break;
 			
@@ -693,12 +567,10 @@ void adminMenu(nhahang phu, QuanLyBan khach, int tt) {
 
 	cout << " ===============================" << endl;
 	cout << " |                             |" << endl;
-    cout << " |  Lua chon muc muon truy cap |\n";
+	cout << " |  Lua chon muc muon truy cap |\n";
     cout << " |      1) Xem danh gia        |\n";
     cout << " |      2) Xem doanh thu       |\n";
-    cout << " |      3) Them mon vao Menu   |\n";
-    cout << " |      4) Xoa mon khoi Menu   |\n";
-	cout << " |      5) Thoat               |\n";
+    cout << " |      3) Thoat               |\n";
 	cout << " |                             |" << endl;
 	cout << " ===============================" << endl;
 	cin >> adminOption;
@@ -714,17 +586,7 @@ void adminMenu(nhahang phu, QuanLyBan khach, int tt) {
 		adminMenu(phu, khach, tt);
 		break;
 	case 3:
-		phu.themmonan();
-		_getch();
-		system("cls");
-		adminMenu(phu,khach, tt);
-		break;
-	case 4:
-		phu.xoamonan();
-		_getch();
-		system("cls");
-		adminMenu(phu,khach,tt);
-	case 5:
+		
 		mainMenu(phu, khach, tt);
 		break;
 	
@@ -760,7 +622,6 @@ void userMenu(nhahang nhom8,QuanLyBan phu, int tt){
 		userMenu(nhom8,phu,tt);
 		
 	case 2:	
-	
 		break;
 	case 5:
 		phu.huyDatBan();
