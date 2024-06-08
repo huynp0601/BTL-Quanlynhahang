@@ -3,6 +3,7 @@
 #include <string>
 #include <conio.h>
 #include <iomanip>
+#include <bits/stdc++.h>
 using namespace std;
 const int MAX_MONAN = 100;
 
@@ -14,7 +15,7 @@ private:
     };
     MonAn danhSachMonAn[MAX_MONAN];
     int soLuongMonAn;
-
+    multiset<string> ve;
 public:
     Menu() {
     	soLuongMonAn=0;
@@ -26,6 +27,7 @@ public:
             cout << "Nhap ten mon an: ";
             cin.ignore();
             getline(cin, mon.ten);
+            ve.insert(mon.ten);
             cout << "Nhap gia tien: ";
             cin >> mon.gia;
             danhSachMonAn[soLuongMonAn++] = mon;
@@ -58,6 +60,7 @@ public:
 
         for (int i = 0; i < soLuongMonAn; ++i) {
             if (danhSachMonAn[i].ten == ten) {
+            	ve.erase(ten);
                 for (int j = i; j < soLuongMonAn - 1; ++j) {
                     danhSachMonAn[j] = danhSachMonAn[j + 1];
                 }
@@ -72,7 +75,21 @@ public:
             cout << "Khong tim thay mon an trong menu! Vui long thu lai.\n";
         }
     } while (!timThay);
-	}	
+	}
+	bool checkmon( string a){
+		if(ve.count(a)!=0) return true;
+		else return false;
+			
+	}
+	long long giamonan(string a){
+		for(int i=0;i<soLuongMonAn; ++i){
+			if(danhSachMonAn[i].ten== a){
+				return danhSachMonAn[i].gia;
+			}
+		}
+		return 0;
+	}
+		
 
 };
 class danhgia {
@@ -130,8 +147,8 @@ public:
 };
 class admin {
 private:
-	string const username = "nhahang08";
-	string const password = "nhom8deptrai";
+	string const username = "1";
+	string const password = "1";
 public:
 	admin(){
 	}
@@ -177,6 +194,9 @@ private:
     int soLuongBan = 10; 
 
 public:
+	int setsoLuongBan(){
+		return soLuongBan;
+	}
     QuanLyBan() {
         for (int i = 0; i < soLuongBan; ++i) {
             danhSachBan[i] = Ban(i + 1); 
@@ -192,7 +212,7 @@ public:
     }
 
 
-void datBan() {
+	void datBan() {
             int soLuongDat;
             cout << "Nhap so luong ban muon dat: ";
             cin >> soLuongDat;
@@ -217,7 +237,7 @@ void datBan() {
                     danhSachBan[maBan - 1].setTrangThai(false);
                     cout << "Dat ban " << maBan << " thanh cong!" << endl;
                 } else {
-                    cout << "Ban " << maBan << " dang co nguoi. Vui long chon ban khac!" << endl;
+                    cout << "Ban " << maBan << " Dang co nguoi. Vui long chon ban khac!" << endl;
                     --i;
                 }
             }
@@ -262,9 +282,28 @@ void datBan() {
             }
         }
     }
+    void trangthaibandangdung(){
+    	cout << "Danh sach ban trong:" << endl;
+        for (int i = 0; i < soLuongBan; i++) {
+            if (danhSachBan[i].getTrangThai()) {
+                cout << " - Ban " << danhSachBan[i].getMaBan() << endl;
+            }
+        }
+
+        cout << "Danh sach ban dang su dung:" << endl;
+        for (int i = 0; i < soLuongBan; i++) {
+            if (!danhSachBan[i].getTrangThai()) {
+                cout << " - Ban " << danhSachBan[i].getMaBan() << endl;
+            }
+        }
+	}
+	bool trangthaiban(int a){
+		if(danhSachBan[a - 1].getTrangThai()==true) return true;
+		else return false;
+	}
 };
-class date
-{
+QuanLyBan khach;
+class date{
 private:
 	int day,month,year;
 public:
@@ -339,187 +378,193 @@ public:
 	void hienthimenu(){
 		menu.displayMenu();
 	}
+	bool check(string a){
+		if(menu.checkmon(a)) return true;
+		else return false;
+	}
+	long long giamonan(string a){
+		return menu.giamonan(a);
+	}
 	
 };
+nhahang nhom8;
+class hoadon {
+private:
+    int mahoadon;
+    bool trangThai;
+
+public:
+    hoadon() {
+        mahoadon = 0;
+        trangThai = true;
+    }
+
+    hoadon(int mahoadon) {
+        this->mahoadon = mahoadon;
+        this->trangThai = true;
+    }
+
+    int getmahoadon() const {
+        return mahoadon;
+    }
+
+    void setTrangThai(bool trangThai) {
+        this->trangThai = trangThai;
+    }
+
+    bool getTrangThai() const {
+        return trangThai;
+    }
+};
+class oder{
+	private:
+    	int tongsoluonghoadon1ngay = 0;
+    	string* dshoadon; 
+    	double *tienhoadon;
+    	int tongsoluonghoadon1thang[12] = {0}; 
+
+    	
+	public:
+		oder() {
+        dshoadon = new string[tongsoluonghoadon1ngay]; 
+        tienhoadon=new double[tongsoluonghoadon1ngay];
+    	}
+		void datmonan(QuanLyBan phu){
+			khach=phu;
+			khach.trangThaiBan();
+        	cout<<"ban muon oder mon an cho ban so may?: " ;
+        	int oderban;
+        	cin>> oderban;
+        	if(!khach.trangthaiban(oderban)){
+        		cout<<"Hoa don so "<<tongsoluonghoadon1ngay+1<<" :"<<endl;;
+        		nhom8.hienthimenu();
+        		cout<<"so luong mon an ban muon oder? : ";
+        		int soluongoder;
+        		cin>>soluongoder;
+        		dshoadon[tongsoluonghoadon1ngay]="";
+        		for(int i=0;i<soluongoder;i++){
+        			string tenmonan;
+        			cout<<"Mon an thu "<<i+1<<" : "; 
+        			cin.ignore();
+        			getline(cin,tenmonan);
+        			if(nhom8.check(tenmonan)){
+        				dshoadon[tongsoluonghoadon1ngay]+=tenmonan;
+        				dshoadon[tongsoluonghoadon1ngay]+=nhom8.giamonan(tenmonan);
+        				tienhoadon[tongsoluonghoadon1ngay]+=nhom8.giamonan(tenmonan);
+					}
+					else{
+						cout<<"Khong co mon an nay trong menu, vui long thu lai!"<< endl;;
+						i--;
+						continue;
+					}
+					
+				}
+				cout<<"Dat mon thanh cong, xin quy khach cho trong it phut!!!"<< endl;
+				tongsoluonghoadon1ngay++;
+			}
+			else{
+				cout<<"Ban nay chua dat, xin quy khach vui long dat ban truoc!!!";
+			}
+		}
+};
+
+oder ODER;
 
 void userMenu(nhahang nhom8,QuanLyBan khach, int tt);
 void adminLogin(nhahang phu, QuanLyBan khach ,int tt);
 void mainMenu(nhahang phu,QuanLyBan khach, int tt);
 void adminMenu(nhahang phu, QuanLyBan khach, int tt);
-int main() {
-	nhahang nhom8;
-	QuanLyBan khach;
-    int dangnhap = 0, tt = 0;
-    cout << "Nhap ngay hom nay\n";
-    nhom8.setDate();
-    system("cls");
-    cout << " ===============================\n";
-    cout << " |                             |\n";
-    cout << " |                             |\n";
-    cout << " |          He thong           |\n";
-    cout << " |      Quan ly nha hang       |\n";
-    cout << " |                             |\n";
-    cout << " |                             |\n";
-    cout << " ===============================\n";
-    cout << "An phim bat ky de tiep tuc...\n";
-    _getch();
-    system("cls");
-    cout << " ===============================\n";
-    cout << " |                             |\n";
-    cout << " |   Truy cap voi tu cach:     |\n";
-    cout << " |         1) Chu nha hang     |\n";
-    cout << " |         2) Khach            |\n";
-    cout << " |         3) Thoat ra         |\n";
-    cout << " |                             |\n";
-    cout << " ===============================\n";
-    cin >> dangnhap;
-    system("cls");
-	string username, password;
-    switch (dangnhap) {
-        case 1:
-        cout << " ===============================\n";
-        cout << "                              \n";
-        cout << "         - Dang nhap -        \n";
-        cout << "        Ten dang nhap: "; cin >> username;
-        cout << "        Mat khau: "; cin >> password;
-        cout << "                              \n";
-        cout << "                              \n";
-        cout << " ===============================\n";
-        if ((nhom8.getAdminPassword() == password) && (nhom8.getAdminUsername() == username))
-		{
-			system("cls");
-			int adminOption = 0;
-			cout << " ===============================" << endl;
-			cout << " |                             |" << endl;
-            cout << " |  Lua chon muc muon truy cap |\n";
-            cout << " |      1) Xem danh gia        |\n";
-            cout << " |      2) Xem doanh thu       |\n";
-            cout << " |      3) Them mon vao Menu   |\n";
-            cout << " |      4) Xoa mon khoi Menu   |\n";
-			cout << " |      5) Thoat               |\n";
-			cout << " |                             |" << endl;
-			cout << " ===============================" << endl;
-			cin >> adminOption;
-			system("cls");
-			switch (adminOption) {
-			case 1:
-				nhom8.hienThiDiemTB();
-				nhom8.hienThiDanhGia();
-				_getch();
-				system("cls");
-				adminMenu(nhom8,khach, tt);
-				break;
-			case 2:
-				adminMenu(nhom8,khach, tt);
-				break;
-			case 3:
-				nhom8.themmonan();
-				_getch();
-				system("cls");
-				adminMenu(nhom8,khach, tt);
-				break;
-			case 4:
-				nhom8.xoamonan();
-				_getch();
-				system("cls");
-				adminMenu(nhom8,khach, tt);
-			case 5:
-				mainMenu(nhom8,khach,tt);
-				break;
-			
-			default:
-				cout << " Vui long chon lai!" << endl;
-				adminMenu(nhom8,khach, tt);
-				break;
-			}
-		}
-		else {
-			cout << " Thong tin dang nhap khong hop le, an phim bat ky de thu lai!" << endl;
-			_getch();
-			system("cls");
-			adminLogin(nhom8,khach, tt);
-		}    
-        	break;    
-        case 2:
-        cout<<	" ===============================" << endl;
-		cout<<	" |                             |" << endl;
-		cout<<	" | Lua chon thao tac ban muon: |" << endl;
-		cout<<	" | 1) Dat ban                  |" << endl;
-		cout<<	" | 2) Menu                     |" << endl;
-		cout<<	" | 3) Oder them                |" << endl;
-		cout<<	" | 4) Xem hoa don              |" << endl;
-		cout<<	" | 5) Xoa ban                  |" << endl;
-		cout<<	" | 6) Danh gia chat luong      |" << endl;
-		cout<<	" | 7) Quay lai                 |" << endl;
-		cout<<	" | 8) Trang thai ban an        |" << endl;
-		cout<<	" |                             |" << endl;
-		cout<<	" ===============================" << endl;
-		int userOption=0;
-		cin >> userOption;
+
+
+void userMenu(nhahang nhom8,QuanLyBan phu, int tt){
+	cout<<	" ===============================" << endl;
+	cout<<	" |                             |" << endl;
+	cout<<	" | Lua chon thao tac ban muon: |" << endl;
+	cout<<	" | 1) Dat ban                  |" << endl;
+	cout<<	" | 2) Menu                     |" << endl;
+	cout<<	" | 3) Oder mon an              |" << endl;
+	cout<<	" | 4) Xem hoa don              |" << endl;
+	cout<<	" | 5) Xoa ban                  |" << endl;
+	cout<<	" | 6) Danh gia chat luong      |" << endl;
+	cout<<	" | 7) Quay lai                 |" << endl;
+	cout<<	" | 8) Trang thai ban an        |" << endl;
+	cout<<	" |                             |" << endl;
+	cout<<	" ===============================" << endl;
+	int userOption=0;
+	cin >> userOption;
+	system("cls");
+	switch(userOption){
+	case 1:
+		phu.hienThiDanhSachBan();
+		phu.datBan();
+		_getch();
 		system("cls");
-		switch(userOption){
-			case 1:
-				khach.hienThiDanhSachBan();
-				khach.datBan();
-				_getch();
+		userMenu(nhom8,phu,tt);
+		
+	case 2:	
+		nhom8.hienthimenu();
+		_getch();
+		system("cls");
+		userMenu(nhom8,phu,tt);
+		break;
+	case 3:
+				cout << " ===============================" << endl;
+				cout << " |                             |" << endl;
+				cout << " | 1) Oder mon an              |" << endl;
+				cout << " | 2) Oder them                |" << endl;
+				cout << " | 3) Hien thi hoa don         |" << endl;
+				cout << " | 4) Thoat                    |" << endl;
+				cout << " |                             |" << endl;
+				cout << " ===============================" << endl;
+				int optionoder;
+				cin>> optionoder;
 				system("cls");
-				userMenu(nhom8, khach,tt);
-				break;
-			case 2:
-				nhom8.hienthimenu();
-				cout<<"Ban co muon order khong?(Y/N)\n";
-				char t;
-				cin>>t;
-				while(t=='Y'||t=='y'){
-					
+				switch(optionoder){
+					case 1:
+						ODER.datmonan(phu);
+						_getch();
+						system("cls");
+						userMenu(nhom8,khach,tt);
+						break;
+					case 2:
+						
+						break;
+					case 3:
+						break;
+					case 4:
+						userMenu(nhom8,khach,tt);
+						break;
+					default:
+            		cout << "Lua chon khong hop le! Vui long chon lai\n";
+            		userMenu(nhom8,khach,tt);
+            		break;
 				}
 				_getch();
 				system("cls");
-				userMenu(nhom8, khach,tt);
+				userMenu(nhom8,phu,tt);				
 				break;
-			case 5:
-				khach.huyDatBan();
-				_getch();
-				system("cls");
-				userMenu(nhom8,khach,tt);				
-				break;
-			case 6:
-				nhom8.nhapDanhGia();
-				_getch();
-				system("cls");
-				userMenu(nhom8,khach,tt);
-				break;
-			case 7:
-				mainMenu(nhom8,khach,tt);
-				break;
-			case 8:
-				khach.trangThaiBan();
-				_getch();
-				system("cls");
-				userMenu(nhom8,khach,tt);
-				break;
-				
-		
-            
-        case 3:
-        cout << " ===============================" << endl;
-		cout << " |                             |" << endl;
-		cout << " |                             |" << endl;
-		cout << " |          Cam on !!!         |" << endl;
-		cout << " |                             |" << endl;
-		cout << " |                             |" << endl;
-		cout << " ===============================" << endl;
+	case 5:
+		phu.huyDatBan();
+		_getch();
+		system("cls");
+		userMenu(nhom8,phu,tt);				
 		break;
-            return 0;
-        default:
-            cout << "Lua chon khong hop le! Vui long chon lai\n";
-            mainMenu(nhom8,khach, tt);
-            break;
-    }
-    return 0;
-};
+	case 6:
+		nhom8.nhapDanhGia();
+		_getch();
+		system("cls");
+		userMenu(nhom8,phu,tt);
+		break;
+	case 7:
+		mainMenu(nhom8,phu,tt);
+		break;
+	case 8:
+		phu.trangThaiBan();
+		_getch();
+		system("cls");
+		userMenu(nhom8,phu,tt);
+	};
 }
-
 void adminLogin(nhahang phu2, QuanLyBan khach, int tt2) {
     string username, password;
     cout << " ===============================\n";
@@ -589,7 +634,7 @@ void adminLogin(nhahang phu2, QuanLyBan khach, int tt2) {
 			adminLogin(phu2, khach, tt2);
 		}    
 }
-void userMenu(nhahang nhom8, QuanLyBan phu2, int tt2);
+
 void mainMenu(nhahang phu, QuanLyBan phu2, int tt) {
 	
 	int loginOption = 0;
@@ -741,56 +786,206 @@ void adminMenu(nhahang phu, QuanLyBan khach, int tt) {
 		break;
 	};
 }
-void userMenu(nhahang nhom8,QuanLyBan phu, int tt){
-	cout<<	" ===============================" << endl;
-	cout<<	" |                             |" << endl;
-	cout<<	" | Lua chon thao tac ban muon: |" << endl;
-	cout<<	" | 1) Dat ban                  |" << endl;
-	cout<<	" | 2) Menu                     |" << endl;
-	cout<<	" | 3) Oder them                |" << endl;
-	cout<<	" | 4) Xem hoa don              |" << endl;
-	cout<<	" | 5) Xoa ban                  |" << endl;
-	cout<<	" | 6) Danh gia chat luong      |" << endl;
-	cout<<	" | 7) Quay lai                 |" << endl;
-	cout<<	" | 8) Trang thai ban an        |" << endl;
-	cout<<	" |                             |" << endl;
-	cout<<	" ===============================" << endl;
-	int userOption=0;
-	cin >> userOption;
-	system("cls");
-	switch(userOption){
-	case 1:
-		phu.hienThiDanhSachBan();
-		phu.datBan();
-		_getch();
+
+	
+
+	
+int main() {
+	
+    int dangnhap = 0, tt = 0;
+    cout << "Nhap ngay hom nay\n";
+    nhom8.setDate();
+    system("cls");
+    cout << " ===============================\n";
+    cout << " |                             |\n";
+    cout << " |                             |\n";
+    cout << " |          He thong           |\n";
+    cout << " |      Quan ly nha hang       |\n";
+    cout << " |                             |\n";
+    cout << " |                             |\n";
+    cout << " ===============================\n";
+    cout << "An phim bat ky de tiep tuc...\n";
+    _getch();
+    system("cls");
+    cout << " ===============================\n";
+    cout << " |                             |\n";
+    cout << " |   Truy cap voi tu cach:     |\n";
+    cout << " |         1) Chu nha hang     |\n";
+    cout << " |         2) Khach            |\n";
+    cout << " |         3) Thoat ra         |\n";
+    cout << " |                             |\n";
+    cout << " ===============================\n";
+    cin >> dangnhap;
+    system("cls");
+	string username, password;
+    switch (dangnhap) {
+        case 1:
+        cout << " ===============================\n";
+        cout << "                              \n";
+        cout << "         - Dang nhap -        \n";
+        cout << "        Ten dang nhap: "; cin >> username;
+        cout << "        Mat khau: "; cin >> password;
+        cout << "                              \n";
+        cout << "                              \n";
+        cout << " ===============================\n";
+        if ((nhom8.getAdminPassword() == password) && (nhom8.getAdminUsername() == username))
+		{
+			system("cls");
+			int adminOption = 0;
+			cout << " ===============================" << endl;
+			cout << " |                             |" << endl;
+            cout << " |  Lua chon muc muon truy cap |\n";
+            cout << " |      1) Xem danh gia        |\n";
+            cout << " |      2) Xem doanh thu       |\n";
+            cout << " |      3) Them mon vao Menu   |\n";
+            cout << " |      4) Xoa mon khoi Menu   |\n";
+			cout << " |      5) Thoat               |\n";
+			cout << " |                             |" << endl;
+			cout << " ===============================" << endl;
+			cin >> adminOption;
+			system("cls");
+			switch (adminOption) {
+			case 1:
+				nhom8.hienThiDiemTB();
+				nhom8.hienThiDanhGia();
+				_getch();
+				system("cls");
+				adminMenu(nhom8,khach, tt);
+				break;
+			case 2:
+				adminMenu(nhom8,khach, tt);
+				break;
+			case 3:
+				nhom8.themmonan();
+				_getch();
+				system("cls");
+				adminMenu(nhom8,khach, tt);
+				break;
+			case 4:
+				nhom8.xoamonan();
+				_getch();
+				system("cls");
+				adminMenu(nhom8,khach, tt);
+			case 5:
+				mainMenu(nhom8,khach,tt);
+				break;
+			
+			default:
+				cout << " Vui long chon lai!" << endl;
+				adminMenu(nhom8,khach, tt);
+				break;
+			}
+		}
+		else {
+			cout << " Thong tin dang nhap khong hop le, an phim bat ky de thu lai!" << endl;
+			_getch();
+			system("cls");
+			adminLogin(nhom8,khach, tt);
+		}    
+        	break;    
+        case 2:
+        cout<<	" ===============================" << endl;
+		cout<<	" |                             |" << endl;
+		cout<<	" | Lua chon thao tac ban muon: |" << endl;
+		cout<<	" | 1) Dat ban                  |" << endl;
+		cout<<	" | 2) Menu                     |" << endl;
+		cout<<	" | 3) Oder mon an              |" << endl;
+		cout<<	" | 4) Xem hoa don              |" << endl;
+		cout<<	" | 5) Xoa ban                  |" << endl;
+		cout<<	" | 6) Danh gia chat luong      |" << endl;
+		cout<<	" | 7) Quay lai                 |" << endl;
+		cout<<	" | 8) Trang thai ban an        |" << endl;
+		cout<<	" |                             |" << endl;
+		cout<<	" ===============================" << endl;
+		int userOption=0;
+		cin >> userOption;
 		system("cls");
-		userMenu(nhom8,phu,tt);
-		
-	case 2:	
-		nhom8.hienthimenu();
-		_getch();
-		system("cls");
-		userMenu(nhom8,phu,tt);
-		break;
-	case 5:
-		phu.huyDatBan();
-		_getch();
-		system("cls");
-		userMenu(nhom8,phu,tt);				
-		break;
-	case 6:
-		nhom8.nhapDanhGia();
-		_getch();
-		system("cls");
-		userMenu(nhom8,phu,tt);
-		break;
-	case 7:
-		mainMenu(nhom8,phu,tt);
-		break;
-	case 8:
-		phu.trangThaiBan();
-		_getch();
-		system("cls");
-		userMenu(nhom8,phu,tt);
-	};
+		switch(userOption){
+			case 1:
+				khach.hienThiDanhSachBan();
+				khach.datBan();
+				_getch();
+				system("cls");
+				userMenu(nhom8, khach,tt);
+				break;
+			case 2:
+				nhom8.hienthimenu();
+				cout<<"Ban co muon order khong?(Y/N)\n";
+				char t;
+				cin>>t;
+				while(t=='Y'||t=='y'){
+					
+				}
+				_getch();
+				system("cls");
+				userMenu(nhom8, khach,tt);
+				break;
+			case 3:
+        		cout << " ===============================" << endl;
+				cout << " |                             |" << endl;
+				cout << " | 1) Oder mon an              |" << endl;
+				cout << " | 2) Oder them                |" << endl;
+				cout << " | 3) Hien thi hoa don         |" << endl;
+				cout << " | 4) Thoat                    |" << endl;
+				cout << " |                             |" << endl;
+				cout << " ===============================" << endl;
+				int optionoder;
+				cin>> optionoder;
+				system("cls");
+				switch(optionoder){
+					case 1:
+						ODER.datmonan(khach);
+						_getch();
+						system("cls");
+						userMenu(nhom8,khach,tt);
+						break;
+					case 2:
+						
+						break;
+					case 3:
+						break;
+					case 4:
+						userMenu(nhom8,khach,tt);
+						break;
+					default:
+            		cout << "Lua chon khong hop le! Vui long chon lai\n";
+            		userMenu(nhom8,khach,tt);
+            		break;
+				}
+				_getch();
+				system("cls");
+				userMenu(nhom8, khach,tt);
+				break;
+            
+			case 5:
+				khach.huyDatBan();
+				_getch();
+				system("cls");
+				userMenu(nhom8,khach,tt);				
+				break;
+			case 6:
+				nhom8.nhapDanhGia();
+				_getch();
+				system("cls");
+				userMenu(nhom8,khach,tt);
+				break;
+			case 7:
+				mainMenu(nhom8,khach,tt);
+				break;
+			case 8:
+				khach.trangThaiBan();
+				_getch();
+				system("cls");
+				userMenu(nhom8,khach,tt);
+				break;
+				
+        	default:
+            		cout << "Lua chon khong hop le! Vui long chon lai\n";
+            		mainMenu(nhom8,khach, tt);
+            		break;
+    }
+    
 }
+
+}
+
