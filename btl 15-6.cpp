@@ -83,13 +83,13 @@ public:
 class HoaDon{
 	private:
 		
-		vector<vector<pair<string, long long>>> hoadon;
+		vector<vector<pair<string, long long>>> hoadon;// cai nay co ban, them vao ko van de gi
     	Menu& me;
 	public:
-		HoaDon(Menu &menu) : me(menu) {}
+		HoaDon(Menu &menu) : me(menu) {} // ke thua, da hinh
 		
 		void odermon() {
-        	vector<pair<string, long long>> donHang;
+        	vector<pair<string, long long>> donHang;// len mang neu ko biet vector la gi
         	cout << "Hoa don so " << hoadon.size() + 1 << ":\n";
         	me.displayMenu();
         	cout << "So luong mon an ban muon oder: ";
@@ -410,7 +410,7 @@ private:
 	Menu &me;
 	
 public:
-	nhahang(Menu &menu) : me(menu) {}
+	nhahang(Menu &menu) : me(menu) {}// ke thua, da hinh
 	string getAdminUsername() const {
 	return chu.getUsername();
 	}
@@ -744,6 +744,7 @@ void oderMenu(nhahang &phu, QuanLyBan &phu2, int tt, HoaDon &hd){
 			oderMenu(phu,phu2,tt,hd);
 			break;
 		case 2:
+			
 			cout<<"Nhap ma hoa don ban muon oder them: ";
 			int z;
 			cin>>z;
