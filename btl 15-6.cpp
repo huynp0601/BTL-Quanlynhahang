@@ -33,7 +33,8 @@ public:
         }
     }
 	void displayMenu() const {
-        cout << "+----------------------------+------------+\n";
+        cout << "                 MENU                        ";
+		cout << "+----------------------------+------------+\n";
         cout << "| Ten mon an                 | Gia tien   |\n";
         cout << "+----------------------------+------------+\n";
         for (int i = 0; i < soLuongMonAn; ++i) {
@@ -44,31 +45,35 @@ public:
     }
 
     void xoaMon() {
-        cout << "                  MENU                     \n";
-        displayMenu();
-        string ten;
-        bool timThay = false;
-
-        cout << "Nhap ten mon an can xoa: ";
-        cin.ignore();
-        getline(cin, ten);
-
-        for (int i = 0; i < soLuongMonAn; ++i) {
-            if (danhSachMonAn[i].ten == ten) {
-                for (int j = i; j < soLuongMonAn - 1; ++j) {
-                    danhSachMonAn[j] = danhSachMonAn[j + 1];
-                }
-                --soLuongMonAn;
-                cout << "Mon an da duoc xoa thanh cong!\n";
-                timThay = true;
-                break;
-            }
-        }
-
-        if (!timThay) {
-            cout << "Khong tim thay mon an trong menu! Vui long thu lai.\n";
-        }
-    }
+	    displayMenu();
+	    string ten;
+	    bool timThay = false;
+	
+	    do {
+	        cout << "Nhap ten mon an can xoa: ";
+	        cin.ignore();
+	        getline(cin, ten);
+	        for (int i = 0; i < soLuongMonAn; ++i) {
+	            if (danhSachMonAn[i].ten.find(ten) != string::npos) {
+	                for (int j = i; j < soLuongMonAn - 1; ++j) {
+	                    danhSachMonAn[j] = danhSachMonAn[j + 1];
+	                }
+	                --soLuongMonAn;
+	                cout << "Mon an da duoc xoa thanh cong!\n";
+	                timThay = true;
+	                break;
+	            }
+	        }
+	
+	        if (!timThay) {
+	            cout << "Khong tim thay mon an trong menu! Ban co muon xoa mon khong? Y/N \n";
+	            char s;
+	            cin >> s;
+	            if (s == 'N' || s == 'n') return;
+	            cin.ignore();
+	        }
+	    } while (!timThay);
+	}
 	
 	string laygiamon(const string &a) const {
         for (int i = 0; i < soLuongMonAn; ++i) {
