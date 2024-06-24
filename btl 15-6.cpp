@@ -173,7 +173,60 @@ class HoaDon{
         	cout << "TONG HOA DON SO " << n << ": " << tongGiaTri << endl;
     	}
 };
+class danhgia {
+private:
+    string ten;
+    string SDT;
+    double diem;
+    int dem ;
+    int sonhanxet ;
+    double tong ;
+    string nhanxet[100];
+    string sdt[100];
+    string kh[100];
 
+public:
+	danhgia() : dem(0), sonhanxet(0), tong(0) {}
+    void nhap() {
+        cout << "Nhap thong tin quy khach: " << endl;
+        cout << "Ten: ";
+        cin.ignore(); 
+        getline(cin, ten);
+        cout << "SDT: ";
+        getline(cin, SDT);
+        cout << "Quy khach cham diem ve chat luong mon an: ";
+        cin >> diem;
+        cin.ignore(); 
+        dem++;
+        tong += diem;
+        if (diem <= 5) {
+            cout << "Quy khach co the nhan xet de nha hang co the khac phuc: ";
+            getline(cin, nhanxet[sonhanxet]);
+            sdt[sonhanxet] = SDT;
+            kh[sonhanxet]=ten;
+            sonhanxet++;
+            cout << "Cam on quy khach da danh thoi gian de danh gia!!!" << endl;
+        } else {
+            cout << "Cam on quy khach da danh thoi gian de danh gia!!!" << endl;
+        }
+    }
+
+    void hienthi() {
+		for (int i = 0; i < sonhanxet; i++) {
+            cout << "+---------------------------------------------+" << endl;
+            cout << "| Ten khach hang: " << setw(28) << left << kh[i] << "|" << endl;
+			cout << "| SDT: " << setw(39) << left << sdt[i] << "|" << endl;
+            cout << "| Nhan xet: " << setw(34) << left << nhanxet[i] << "|" << endl;
+        }
+        cout << "+---------------------------------------------+" << endl;
+        
+    }
+    void diemTB(){
+    	double a=(tong/dem);
+    	cout<< "Diem trung binh hien tai cua cua hang: "<<fixed<< setprecision(2)<<a<< endl;
+    	
+	}
+};
 class admin {
 private:
 	string const username = "1";
