@@ -791,11 +791,10 @@ void orderMenu(nhahang &phu, QuanLyBan &phu2, int tt, HoaDon &hd){
 }
 	
 int main() {
-		Menu menu;
-	nhahang nhom8(menu);
-	QuanLyBan khach;
-	
+	Menu menu;
+	QuanLyBan khach;	
     HoaDon hd(menu);
+    nhahang nhom8(menu,hd);
     int dangnhap, tt = 0;
     cout << "Nhap ngay hom nay\n";
     nhom8.setDate();
