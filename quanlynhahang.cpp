@@ -559,8 +559,10 @@ void adminLogin(nhahang &phu2, QuanLyBan& khach, int tt2,HoaDon &hd) {
 				adminMenu(phu2,khach, tt2, hd);
 				break;
 				
-			case 2:
+			case 2:				
 				phu2.tinhTongDoanhThu();
+				_getch();
+				system("cls");
 				adminMenu(phu2, khach,tt2, hd);
 				break;
 			case 3:
@@ -693,10 +695,10 @@ void userMenu(nhahang &nhom8,QuanLyBan &phu, int tt,HoaDon& hd){
 		userMenu(nhom8, phu,tt,hd);
 		break;
 	case 4:
-		nhom8.xoamonan();
+		hd.xemhoadon();
 		_getch();
 		system("cls");
-		adminMenu(nhom8,phu, tt, hd);
+		userMenu(nhom8,phu, tt, hd);
 		break;
 	case 5:
 		phu.huyDatBan();
@@ -728,7 +730,7 @@ void userMenu(nhahang &nhom8,QuanLyBan &phu, int tt,HoaDon& hd){
 	
 }
 //Ham de quan li chuc nang order cua nguoi dung
-void orderMenu(nhahang &phu, QuanLyBan &phu2, int tt, HoaDon &hd){
+void orderMenu(nhahang &phu, QuanLyBan &khach, int tt, HoaDon &hd){
 	cout << " ===============================" << endl;
 	cout << " |                             |" << endl;
 	cout << " | 1) Order mon an             |" << endl;
@@ -742,17 +744,17 @@ void orderMenu(nhahang &phu, QuanLyBan &phu2, int tt, HoaDon &hd){
 	system("cls");
 	switch(optionorder){
 		case 1:
-			phu2.bandangdung();
+			khach.bandangdung();
 			cout<<"Nhap ma ban ban muon ngoi:  ";
 			int n;
 			cin>> n;
-			if(n<1||n>phu2.laysoluongban()){
+			if(n<1||n>khach.laysoluongban()){
 				cout<<"Ma ban khong hop le! Vui long thu lai"<< endl;
 				return;
 			}
-			if(!phu2.checktrangthaiban(n)){
+			if(!khach.checktrangthaiban(n)){
 				cout<<"Ban nay dang trong! Xin quy khach vui long quay lai dat ban truoc!!!";
-				userMenu(phu,phu2,tt,hd);
+				userMenu(phu,khach,tt,hd);
 			}
 			else{
 				hd.ordermon();
@@ -760,31 +762,29 @@ void orderMenu(nhahang &phu, QuanLyBan &phu2, int tt, HoaDon &hd){
            
 			_getch();
 			system("cls");
-			orderMenu(phu,phu2,tt,hd);
+			orderMenu(phu,khach,tt,hd);
 			break;
-		case 2:
-			
+		case 2:			
 			cout<<"Nhap ma hoa don ban muon order them: ";
 			int z;
 			cin>>z;
 			hd.orderthem(z);
 			_getch();
 			system("cls");
-			orderMenu(phu,phu2,tt,hd);
+			orderMenu(phu,khach,tt,hd);
 			break;
-		case 3:
-			
+		case 3:			
 			hd.xemhoadon();
 			_getch();
 			system("cls");
-			orderMenu(phu,phu2,tt,hd);
+			orderMenu(phu,khach,tt,hd);
 			break;
 		case 4:
-			userMenu(phu,phu2,tt, hd);
+			userMenu(phu,khach,tt, hd);
 			break;
 		default:
           	cout << "Lua chon khong hop le! Vui long chon lai\n";
-			orderMenu(phu,phu2,tt,hd);
+			orderMenu(phu,khach,tt,hd);
           	break;
 	}
 	
