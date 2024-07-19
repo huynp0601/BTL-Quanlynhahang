@@ -34,7 +34,8 @@ public:
         }
     }
 	void displayMenu() const { //Ham hien thi menu
-        cout << "+----------------------------+------------+\n";
+        cout << "                  MENU                     \n";
+		cout << "+----------------------------+------------+\n";
         cout << "| Ten mon an                 | Gia tien   |\n";
         cout << "+----------------------------+------------+\n";
         for (int i = 0; i < soLuongMonAn; ++i) {
@@ -45,7 +46,6 @@ public:
     }
 
     void xoaMon() { //Ham xoa mon khoi menu
-        cout << "                  MENU                     \n";
         displayMenu();
         string ten;
         bool timThay = false;
