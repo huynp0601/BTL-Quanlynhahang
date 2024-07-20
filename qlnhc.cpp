@@ -410,7 +410,6 @@ void mainMenu(Menu &menu, QuanLyBan &qlb, DanhGiaList &danhGiaList, bool exitPro
         printf("===============================\n");
         scanf("%d", &choice);
         system("cls");
-
         switch (choice) {
             case 1:
                 adminLogin(menu, qlb, danhGiaList, exitProgram);
