@@ -465,14 +465,14 @@ public:
     }
 };
 //Khai bao cac ham, mo ta cac ham o phia duoi
-void adminMenu(nhahang &phu, QuanLyBan &khach, int tt, HoaDon& hd);
-void adminLogin(nhahang &phu2, QuanLyBan &khach, int tt2, HoaDon& hd);
-void mainMenu(nhahang &phu, QuanLyBan& phu2, int tt, HoaDon &hd);
-void userMenu(nhahang &nhom8, QuanLyBan &phu2, int tt, HoaDon &hd);
-void orderMenu(nhahang &phu, QuanLyBan &phu2, int tt, HoaDon &hd);
+void adminMenu(nhahang &phu, QuanLyBan &khach, HoaDon& hd);
+void adminLogin(nhahang &phu, QuanLyBan &khach, HoaDon& hd);
+void mainMenu(nhahang &phu, QuanLyBan& khach, HoaDon &hd);
+void userMenu(nhahang &phu, QuanLyBan &khach, HoaDon &hd);
+void orderMenu(nhahang &phu, QuanLyBan &khach, HoaDon &hd);
 
 ////Ham quan li chuc nang cua admin
-void adminMenu(nhahang &phu, QuanLyBan &khach, int tt,HoaDon &hd) {
+void adminMenu(nhahang &phu, QuanLyBan &khach,HoaDon &hd) {
 	int adminOption = 0;
 
 	cout << " ===============================" << endl;
@@ -493,37 +493,37 @@ void adminMenu(nhahang &phu, QuanLyBan &khach, int tt,HoaDon &hd) {
 		phu.hienThiDiemTB();
         phu.hienThiDanhGia();
         _getch();
-		adminMenu(phu, khach, tt, hd);
+		adminMenu(phu, khach, hd);
 		break;
 	case 2:
 		phu.tinhTongDoanhThu();
 		_getch();
-		adminMenu(phu, khach, tt, hd);
+		adminMenu(phu, khach, hd);
 		break;
 	case 3:
 		phu.themmonan();
 		_getch();
 		system("cls");
-		adminMenu(phu,khach, tt, hd);
+		adminMenu(phu,khach, hd);
 		break;
 	case 4:
 		phu.xoamonan();
 		_getch();
 		system("cls");
-		adminMenu(phu,khach,tt, hd);
+		adminMenu(phu,khach, hd);
 		break;
 	case 5:
-		mainMenu(phu, khach, tt, hd);
+		mainMenu(phu, khach, hd);
 		break;
 	
 	default:
 		cout << " Vui long chon lai!!" << endl;
-		adminMenu(phu, khach, tt, hd);
+		adminMenu(phu, khach, hd);
 		break;
 	};
 }
 ////Ham kiem tra admin dang nhap
-void adminLogin(nhahang &phu2, QuanLyBan& khach, int tt2,HoaDon &hd) {
+void adminLogin(nhahang &phu2, QuanLyBan& khach,HoaDon &hd) {
     string username, password;
     cout << " ===============================\n";
     cout << "                              \n";
@@ -556,34 +556,34 @@ void adminLogin(nhahang &phu2, QuanLyBan& khach, int tt2,HoaDon &hd) {
 				phu2.hienThiDanhGia();
 				_getch();
 				system("cls");
-				adminMenu(phu2,khach, tt2, hd);
+				adminMenu(phu2,khach, hd);
 				break;
 				
 			case 2:				
 				phu2.tinhTongDoanhThu();
 				_getch();
 				system("cls");
-				adminMenu(phu2, khach,tt2, hd);
+				adminMenu(phu2, khach, hd);
 				break;
 			case 3:
 				phu2.themmonan();
 				_getch();
 				system("cls");
-				adminMenu(phu2,khach, tt2, hd);
+				adminMenu(phu2,khach, hd);
 				break;
 			case 4:
 				phu2.xoamonan();
 				_getch();
 				system("cls");
-				adminMenu(phu2,khach, tt2, hd);
+				adminMenu(phu2,khach, hd);
 				break;
 			case 5:				
-				mainMenu(phu2, khach, tt2, hd);
+				mainMenu(phu2, khach, hd);
 				break;
 			
 			default:
 				cout << " Vui long chon lai!" << endl;
-				adminMenu(phu2, khach, tt2, hd);
+				adminMenu(phu2, khach, hd);
 				break;
 			}
 		}
@@ -591,15 +591,14 @@ void adminLogin(nhahang &phu2, QuanLyBan& khach, int tt2,HoaDon &hd) {
 			cout << " Thong tin dang nhap khong hop le, an phim bat ky de thu lai!" << endl;
 			_getch();
 			system("cls");
-			adminLogin(phu2, khach, tt2, hd);
+			adminLogin(phu2, khach, hd);
 		}    
 }
 //Ham hien thi va quan li menu chinh
-void mainMenu(nhahang &phu, QuanLyBan &phu2, int tt,HoaDon &hd) {
+void mainMenu(nhahang &phu, QuanLyBan &phu2, HoaDon &hd) {
 	
 	int loginOption = 0;
 	int userOption = 0;
-	int orderSlot = tt;
 
 	cout << " ===============================" << endl;
 	cout << " |                             |" << endl;
@@ -627,17 +626,17 @@ void mainMenu(nhahang &phu, QuanLyBan &phu2, int tt,HoaDon &hd) {
 		if ((phu.getAdminPassword() == password) && (phu.getAdminUsername() == username))
 		{
 			system("cls");
-            adminMenu(phu, phu2, tt, hd);
+            adminMenu(phu, phu2, hd);
 		}
 		else
 		{
 			cout << " Thong tin dang nhap khong hop le, an phim bat ky de thu lai thu lai!!" << endl;
 			_getch();
 			system("cls");
-			adminLogin(phu,phu2, orderSlot, hd);
+			adminLogin(phu,phu2, hd);
 		}
 	case 2:
-		userMenu(phu,phu2,tt, hd);
+		userMenu(phu,phu2,hd);
 		break;
 		
 	case 3:
@@ -652,12 +651,12 @@ void mainMenu(nhahang &phu, QuanLyBan &phu2, int tt,HoaDon &hd) {
 	default:
 		cout << "Lua chon khong hop le! Vui long chon lai\n";
 		_getch();
-		mainMenu(phu, phu2, tt , hd);
+		mainMenu(phu, phu2, hd);
 		break;
 	};
 }
 //Ham de nguoi dung quan li menu
-void userMenu(nhahang &nhom8,QuanLyBan &phu, int tt,HoaDon& hd){
+void userMenu(nhahang &nhom8,QuanLyBan &phu, HoaDon& hd){
 	cout<<	" ===============================" << endl;
 	cout<<	" |                             |" << endl;
 	cout<<	" | Lua chon thao tac ban muon: |" << endl;
@@ -680,57 +679,57 @@ void userMenu(nhahang &nhom8,QuanLyBan &phu, int tt,HoaDon& hd){
 		phu.datBan();
 		_getch();
 		system("cls");
-		userMenu(nhom8,phu,tt,hd);
+		userMenu(nhom8,phu,hd);
 		break;
 	case 2:	
 		nhom8.hienthimenu();
 		_getch();
 		system("cls");
-		userMenu(nhom8,phu,tt,hd);
+		userMenu(nhom8,phu,hd);
 		break;
 	case 3:
-		orderMenu(nhom8,phu,tt,hd);
+		orderMenu(nhom8,phu,hd);
 		_getch();
 		system("cls");
-		userMenu(nhom8, phu,tt,hd);
+		userMenu(nhom8, phu,hd);
 		break;
 	case 4:
 		hd.xemhoadon();
 		_getch();
 		system("cls");
-		userMenu(nhom8,phu, tt, hd);
+		userMenu(nhom8,phu, hd);
 		break;
 	case 5:
 		phu.huyDatBan();
 		_getch();
 		system("cls");
-		userMenu(nhom8,phu,tt,hd);				
+		userMenu(nhom8,phu,hd);				
 		break;
 	case 6:
 		nhom8.nhapDanhGia();
 		_getch();
 		system("cls");
-		userMenu(nhom8,phu,tt,hd);
+		userMenu(nhom8,phu,hd);
 		break;
 	case 7:
-		mainMenu(nhom8,phu,tt, hd);
+		mainMenu(nhom8,phu, hd);
 		break;
 	case 8:
 		phu.trangThaiBan();
 		_getch();
 		system("cls");
-		userMenu(nhom8,phu,tt,hd);
+		userMenu(nhom8,phu,hd);
 		break;
 	 default:
         cout << "Lua chon khong hop le! Vui long chon lai\n";
         _getch();
-        userMenu(nhom8, phu, tt, hd);
+        userMenu(nhom8, phu, hd);
         break;
     }
 	
 }
 //Ham de quan li chuc nang order cua nguoi dung
-void orderMenu(nhahang &phu, QuanLyBan &khach, int tt, HoaDon &hd){
+void orderMenu(nhahang &phu, QuanLyBan &khach, HoaDon &hd){
 	cout << " ===============================" << endl;
 	cout << " |                             |" << endl;
 	cout << " | 1) Order mon an             |" << endl;
@@ -754,7 +753,7 @@ void orderMenu(nhahang &phu, QuanLyBan &khach, int tt, HoaDon &hd){
 			}
 			if(!khach.checktrangthaiban(n)){
 				cout<<"Ban nay dang trong! Xin quy khach vui long quay lai dat ban truoc!!!";
-				userMenu(phu,khach,tt,hd);
+				userMenu(phu,khach,hd);
 			}
 			else{
 				hd.ordermon();
@@ -762,7 +761,7 @@ void orderMenu(nhahang &phu, QuanLyBan &khach, int tt, HoaDon &hd){
            
 			_getch();
 			system("cls");
-			orderMenu(phu,khach,tt,hd);
+			orderMenu(phu,khach,hd);
 			break;
 		case 2:			
 			cout<<"Nhap ma hoa don ban muon order them: ";
@@ -771,20 +770,20 @@ void orderMenu(nhahang &phu, QuanLyBan &khach, int tt, HoaDon &hd){
 			hd.orderthem(z);
 			_getch();
 			system("cls");
-			orderMenu(phu,khach,tt,hd);
+			orderMenu(phu,khach,hd);
 			break;
 		case 3:			
 			hd.xemhoadon();
 			_getch();
 			system("cls");
-			orderMenu(phu,khach,tt,hd);
+			orderMenu(phu,khach,hd);
 			break;
 		case 4:
-			userMenu(phu,khach,tt, hd);
+			userMenu(phu,khach, hd);
 			break;
 		default:
           	cout << "Lua chon khong hop le! Vui long chon lai\n";
-			orderMenu(phu,khach,tt,hd);
+			orderMenu(phu,khach,hd);
           	break;
 	}
 	
@@ -795,7 +794,7 @@ int main() {
 	QuanLyBan khach;	
     HoaDon hd(menu);
     nhahang nhom8(menu,hd);
-    int dangnhap, tt = 0;
+    int dangnhap;
     cout << "Nhap ngay hom nay\n";
     nhom8.setDate();
     system("cls");
@@ -823,10 +822,10 @@ int main() {
 	string username, password;
     switch (dangnhap) {
         case 1:
-	        adminLogin(nhom8,khach,tt,hd);
+	        adminLogin(nhom8,khach,hd);
 	        break;    
         case 2:
-	        userMenu(nhom8,khach,tt,hd);
+	        userMenu(nhom8,khach,hd);
 	        break;
 	    case 3:
 	    	return 0;
